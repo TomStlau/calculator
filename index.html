@@ -87,7 +87,7 @@
       function operate(operator, a, b) {
         if (operator === "÷") {
           return divideNums(a, b);
-        } else if (operator === "X") {
+        } else if (operator === "x") {
           return multiplyNums(a, b);
         } else if (operator === "+") {
           return addNums(a, b);
@@ -213,6 +213,52 @@
       backspace.addEventListener("click", backspaceNum);
       dot.addEventListener("click", addDot);
       negative.addEventListener("click", addNegative);
+      document.addEventListener("keydown", (e) => {
+        if (e.key >= "0" && e.key <= "9") {
+          const event = { target: { textContent: e.key } };
+          addNumber(event);
+        } else if (e.key === ".") {
+          addDot();
+        } else if (e.key === "Backspace") {
+          backspaceNum();
+        } else if (e.key === "Enter") {
+          if (
+            previous.textContent !== "" &&
+            current.textContent !== "" &&
+            operator
+          ) {
+            if (operator === "/") {
+              operator = "÷";
+            } else if (operator === "*") {
+              operator = "x";
+            }
+            console.log(operator);
+            firstNumber = parseFloat(previous.textContent);
+            console.log(firstNumber);
+            secondNumber = parseFloat(current.textContent);
+            console.log(secondNumber);
+            result = operate(operator, firstNumber, secondNumber);
+            console.log(result);
+            current.textContent = result.toString().slice(0, 16);
+            previous.textContent = "";
+            operaterDisplay.textContent = "";
+            justOperated = true;
+            operator = null;
+          }
+        } else if (e.key === "Delete") {
+          clearAll();
+        } else if (e.key === "Escape") {
+          clearCurrentNum();
+        } else if (
+          e.key === "+" ||
+          e.key === "-" ||
+          e.key === "*" ||
+          e.key === "/"
+        ) {
+          const event = { target: { textContent: e.key } };
+          addOperator(event);
+        }
+      });
     </script>
   </body>
 </html>
