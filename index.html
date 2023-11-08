@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="outer-calculator">
+        <div class="screen">
+          <div class="previous"></div>
+          <div class="operaterDisplay"></div>
+          <div class="current">0</div>
+        </div>
+        <div class="button-container">
+          <div class="buttons clear">CE</div>
+          <div class="buttons clearCurrent">C</div>
+          <div class="buttons backspace">
+            <i class="fas fa-delete-left"></i>
+          </div>
+          <div class="buttons operators">÷</div>
+          <div class="buttons numbers">1</div>
+          <div class="buttons numbers">2</div>
+          <div class="buttons numbers">3</div>
+          <div class="buttons operators">X</div>
+          <div class="buttons numbers">4</div>
+          <div class="buttons numbers">5</div>
+          <div class="buttons numbers">6</div>
+          <div class="buttons operators">+</div>
+          <div class="buttons numbers">7</div>
+          <div class="buttons numbers">8</div>
+          <div class="buttons numbers">9</div>
+          <div class="buttons operators">-</div>
+          <div class="buttons negative">+/-</div>
+          <div class="buttons numbers">0</div>
+          <div class="buttons dot">.</div>
+          <div class="buttons equals">=</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const numbers = document.querySelectorAll(".numbers");
+      const backspace = document.querySelector(".backspace");
+      const dot = document.querySelector(".dot");
+      const clear = document.querySelector(".clear");
+      const clearCurrent = document.querySelector(".clearCurrent");
+      const operators = document.querySelectorAll(".operators");
+      const equals = document.querySelector(".equals");
+      const negative = document.querySelector(".negative");
+      const operaterDisplay = document.querySelector(".operaterDisplay");
+      const divider = document.querySelector(".divider");
+      let justOperated = false;
+      let current = document.querySelector(".current");
+      let previous = document.querySelector(".previous");
+      let operator = "";
+      let result = 0;
+      let firstNumber = 0;
+      let secondNumber = 0;
+      let isOperatorPressed = false;
+
+      function divideNums(a, b) {
+        return a / b;
+      }
+
+      function multiplyNums(a, b) {
+        return a * b;
+      }
+
+      function addNums(a, b) {
+        return a + b;
+      }
+
+      function subtractNums(a, b) {
+        return a - b;
+      }
+
+      function operate(operator, a, b) {
+        if (operator === "÷") {
+          return divideNums(a, b);
+        } else if (operator === "X") {
+          return multiplyNums(a, b);
+        } else if (operator === "+") {
+          return addNums(a, b);
+        } else if (operator === "-") {
+          return subtractNums(a, b);
+        }
+      }
+
+      function addNumber(e) {
+        if (justOperated) {
+          current.textContent = "";
+          justOperated = false;
+        }
+        if (isOperatorPressed) {
+          current.textContent = "";
+          isOperatorPressed = false;
+        }
+        if (current.textContent.length < 16) {
+          if (current.textContent === "0") {
+            if (
+              !current.textContent.includes(".") &&
+              e.target.textContent === "0"
+            ) {
+              current.textContent = "0";
+            } else {
+              current.textContent = "";
+              current.textContent += e.target.textContent;
+            }
+            current.textContent = "";
+          }
+          current.textContent += e.target.textContent;
+        }
+      }
+
+      function addOperator(e) {
+        if (current.textContent !== "") {
+          if (previous.textContent !== "") {
+            firstNumber = operate(
+              operator,
+              parseFloat(previous.textContent),
+              parseFloat(current.textContent)
+            );
+            previous.textContent = firstNumber;
+            current.textContent = "";
+          } else {
+            previous.textContent = current.textContent;
+            current.textContent = "";
+          }
+        }
+        operaterDisplay.textContent = e.target.textContent.toLowerCase();
+
+        operator = e.target.textContent;
+        isOperatorPressed = true;
+      }
+
+      function addDot() {
+        if (current.textContent.length < 16) {
+          if (justOperated) {
+            current.textContent = "0";
+            justOperated = false;
+          }
+          if (!current.textContent.includes(".")) {
+            current.textContent += ".";
+          }
+        }
+      }
+
+      function addNegative() {
+        if (current.textContent !== "") {
+          if (current.textContent[0] !== "-") {
+            current.textContent = "-" + current.textContent;
+          } else {
+            current.textContent = current.textContent.slice(1);
+          }
+        }
+      }
+
+      function backspaceNum() {
+        if (current.textContent !== "") {
+          current.textContent = current.textContent.slice(
+            0,
+            current.textContent.length - 1
+          );
+        }
+        current.textContent =
+          current.textContent === "" ? "0" : current.textContent;
+      }
+
+      function clearCurrentNum() {
+        current.textContent = "0";
+      }
+
+      function clearAll() {
+        current.textContent = "0";
+        previous.textContent = "";
+        operaterDisplay.textContent = "";
+        operator = "";
+        firstNumber = 0;
+        secondNumber = 0;
+        result = 0;
+      }
+
+      operators.forEach((operator) =>
+        operator.addEventListener("click", addOperator)
+      );
+
+      numbers.forEach((num) => num.addEventListener("click", addNumber));
+      equals.addEventListener("click", () => {
+        if (previous.textContent !== "" && current.textContent !== "") {
+          firstNumber = parseFloat(previous.textContent);
+          secondNumber = parseFloat(current.textContent);
+          console.log(firstNumber, secondNumber);
+          result = operate(operator, firstNumber, secondNumber);
+          current.textContent = result.toFixed(14);
+          previous.textContent = "";
+          operaterDisplay.textContent = "";
+          justOperated = true;
+        }
+      });
+
+      clear.addEventListener("click", clearAll);
+      clearCurrent.addEventListener("click", clearCurrentNum);
+      backspace.addEventListener("click", backspaceNum);
+      dot.addEventListener("click", addDot);
+      negative.addEventListener("click", addNegative);
+    </script>
+  </body>
+</html>

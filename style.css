@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.6) 8%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.outer-calculator {
+  border: 1px solid black;
+  min-width: 500px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(92, 90, 105);
+}
+
+.screen {
+  width: 90%;
+  height: 150px;
+  border: 1px solid black;
+  margin-top: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  font-size: 3rem;
+  flex-direction: column;
+  padding-right: 20px;
+  background-color: #f2f2f2d5;
+  color: #333333;
+}
+
+.current {
+  height: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.previous {
+  font-size: 2rem;
+  text-align: right;
+  height: 50%;
+}
+
+.operaterDisplay {
+  font-size: 1.5rem;
+}
+
+.button-container {
+  width: 90%;
+  height: 80%;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  align-items: center;
+  justify-items: center;
+}
+
+.buttons {
+  border: 1px solid black;
+  width: 100px;
+  height: 80px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  background-color: rgb(233, 180, 120);
+}
+
+.buttons:hover {
+  filter: brightness(0.8);
+  cursor: pointer;
+}
+
+.clear {
+  background-color: rgb(255, 111, 111);
+}
+
+.clearCurrent {
+  background-color: rgb(148, 211, 253);
+}
+
+@media screen and (max-width: 550px) {
+  .container {
+    scale: 0.7;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .container {
+    scale: 0.7;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 700px) {
+  .container {
+    scale: 0.5;
+  }
+}
