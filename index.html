@@ -199,7 +199,6 @@
         if (previous.textContent !== "" && current.textContent !== "") {
           firstNumber = parseFloat(previous.textContent);
           secondNumber = parseFloat(current.textContent);
-          console.log(firstNumber, secondNumber);
           result = operate(operator, firstNumber, secondNumber);
           current.textContent = result.toString().slice(0, 16);
           previous.textContent = "";
@@ -232,13 +231,9 @@
             } else if (operator === "*") {
               operator = "x";
             }
-            console.log(operator);
             firstNumber = parseFloat(previous.textContent);
-            console.log(firstNumber);
             secondNumber = parseFloat(current.textContent);
-            console.log(secondNumber);
             result = operate(operator, firstNumber, secondNumber);
-            console.log(result);
             current.textContent = result.toString().slice(0, 16);
             previous.textContent = "";
             operaterDisplay.textContent = "";
