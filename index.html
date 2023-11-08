@@ -201,7 +201,7 @@
           secondNumber = parseFloat(current.textContent);
           console.log(firstNumber, secondNumber);
           result = operate(operator, firstNumber, secondNumber);
-          current.textContent = result.toFixed(14);
+          current.textContent = result.toString().slice(0, 16);
           previous.textContent = "";
           operaterDisplay.textContent = "";
           justOperated = true;
