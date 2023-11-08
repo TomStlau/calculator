@@ -70,12 +70,13 @@ body {
 
 .button-container {
   width: 90%;
-  height: 80%;
+  height: 70%;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 1fr));
   align-items: center;
   justify-items: center;
+  margin-bottom: 20px;
 }
 
 .buttons:active {
@@ -84,7 +85,6 @@ body {
 }
 
 .buttons {
-  border: 1px solid black;
   width: 100px;
   height: 80px;
   border-radius: 10px;
