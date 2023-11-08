@@ -78,6 +78,10 @@ body {
   justify-items: center;
 }
 
+.buttons:active {
+  translate: 2px 2px;
+}
+
 .buttons {
   border: 1px solid black;
   width: 100px;
@@ -88,6 +92,7 @@ body {
   align-items: center;
   font-size: 3rem;
   background-color: rgb(233, 180, 120);
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.3);
 }
 
 .buttons:hover {
